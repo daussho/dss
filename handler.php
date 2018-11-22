@@ -8,13 +8,13 @@ foreach (glob("model/*.php") as $filename)
 
 # Handler for routing
 
-function userHandler()
+function loginHandler()
 {
-    $user = new UserModel('tes', '1/1/97', 'bandung');
+    $user = new UserModel('admin', 'admin', 0);
     echo json_encode(array(
+       'username' => $user->__get('username'),
        'name' => $user->__get('name'),
-       'birthday' => $user->__get('birthday'),
-       'address' => $user->__get('address')
+       'type' => $user->__get('type')
     ));
 }
 

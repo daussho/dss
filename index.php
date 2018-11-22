@@ -9,8 +9,8 @@ $router = new AltoRouter();
 
 ##################### API ########################
 
-$router->map( 'GET', '/tes', function() {
-    userHandler();
+$router->map( 'GET', '/login', function() {
+    loginHandler();
 });
 
 #################### Views #######################

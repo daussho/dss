@@ -2,15 +2,15 @@
 
 class UserModel
 {
+    private $username;
     private $name;
-    private $birthday;
-    private $address;
+    private $type;
 
-    public function __construct ($name, $birthday, $address)
+    public function __construct ($username, $name, $type)
     {
+        $this->username = $username;
         $this->name = $name;
-        $this->birthday = $birthday;
-        $this->address = $address;
+        $this->type = $type;
     }
 
     public function __get($property) {
@@ -20,11 +20,11 @@ class UserModel
     }
 
     public function __set($property, $value) {
-    if (property_exists($this, $property)) {
-        $this->$property = $value;
-    }
+        if (property_exists($this, $property)) {
+            $this->$property = $value;
+        }
 
-    return $this;
+        return $this;
     }
 }
 
