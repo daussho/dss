@@ -19,6 +19,10 @@ $router->map( 'GET', '/', function() {
 	require __DIR__ . '/views/login.html';
 });
 
+$router->map( 'GET', '/home', function() {
+    require __DIR__ . '/views/home.html';
+});
+
 ##################################################
 
 $match = $router->match();
