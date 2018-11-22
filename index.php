@@ -9,14 +9,18 @@ $router = new AltoRouter();
 
 ##################### API ########################
 
-$router->map( 'GET', '/tes', function() {
-    userHandler();
+$router->map( 'GET', '/login', function() {
+    loginHandler();
 });
 
 #################### Views #######################
 
 $router->map( 'GET', '/', function() {
 	require __DIR__ . '/views/login.html';
+});
+
+$router->map( 'GET', '/home', function() {
+    require __DIR__ . '/views/home.html';
 });
 
 ##################################################

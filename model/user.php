@@ -2,6 +2,7 @@
 
 class UserModel
 {
+<<<<<<< HEAD
     private $nisn;
     private $nama;
     private $nilairapor;
@@ -19,6 +20,17 @@ class UserModel
         $this->kehadiran = $kehadiran;
         $this->akreditas = $akreditas;
         $this->nilaitingkahlaku = $nilaitingkahlaku;
+=======
+    private $username;
+    private $name;
+    private $type;
+
+    public function __construct ($username, $name, $type)
+    {
+        $this->username = $username;
+        $this->name = $name;
+        $this->type = $type;
+>>>>>>> b8898454f417aafde159b3b30af82ad4aa196629
     }
 
     public function __get($property) {
@@ -28,11 +40,11 @@ class UserModel
     }
 
     public function __set($property, $value) {
-    if (property_exists($this, $property)) {
-        $this->$property = $value;
-    }
+        if (property_exists($this, $property)) {
+            $this->$property = $value;
+        }
 
-    return $this;
+        return $this;
     }
 }
 

@@ -26,8 +26,9 @@ foreach (glob("model/*.php") as $filename)
 
 # Handler for routing
 
-function userHandler()
+function loginHandler()
 {
+<<<<<<< HEAD
     $user = new UserModel($nisn, $nama, $nilairapor, $nem, $kehadiran, $akreditas, $nilaitingkahlaku);
     echo json_encode(array(
        'nisn' => $user->__get('nisn'),
@@ -37,6 +38,13 @@ function userHandler()
        'kehadiran' => $user->__get('kehadiran')
        'akreditas' => $user->__get('akreditas')
        'nilaitingkahlaku' => $user->__get('nilaitingkahlaku')
+=======
+    $user = new UserModel('admin', 'admin', 0);
+    echo json_encode(array(
+       'username' => $user->__get('username'),
+       'name' => $user->__get('name'),
+       'type' => $user->__get('type')
+>>>>>>> b8898454f417aafde159b3b30af82ad4aa196629
     ));
 }
 
