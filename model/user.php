@@ -2,15 +2,23 @@
 
 class UserModel
 {
-    private $name;
-    private $birthday;
-    private $address;
+    private $nisn;
+    private $nama;
+    private $nilairapor;
+    private $nem;
+    private $kehadiran;
+    private $akreditas;
+    private $nilaitingkahlaku;
 
-    public function __construct ($name, $birthday, $address)
+    public function __construct ($nisn, $nama, $nilairapor, $nem, $kehadiran, $akreditas, $nilaitingkahlaku)
     {
-        $this->name = $name;
-        $this->birthday = $birthday;
-        $this->address = $address;
+        $this->nisn = $nisn;
+        $this->nama = $nama;
+        $this->nilairapor = $nilairapor;
+        $this->nem = $nem;
+        $this->kehadiran = $kehadiran;
+        $this->akreditas = $akreditas;
+        $this->nilaitingkahlaku = $nilaitingkahlaku;
     }
 
     public function __get($property) {
