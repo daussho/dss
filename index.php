@@ -23,6 +23,10 @@ $router->map( 'GET', '/home', function() {
     require __DIR__ . '/views/home.html';
 });
 
+$router->map( 'GET', '/graph', function() {
+    require __DIR__ . '/views/graph.html';
+});
+
 ##################################################
 
 $match = $router->match();
