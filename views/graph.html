@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Home</title>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <link href='/static/css/css.css' rel="stylesheet">
+    <link href="/static/css/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
@@ -38,9 +38,11 @@
             <v-toolbar-title>Application</v-toolbar-title>
         </v-toolbar>
         <v-content>
-            <v-container fluid fill-height grid-list-md>
+            <v-container fluid fill-height grid-list-xl>
                 <v-layout
-                        justify-center
+                    row
+                    wrap
+                    justify-center
                 >
                     <v-flex text-xs-center xs12 md6>
                         <v-card>
@@ -76,11 +78,11 @@
     </v-app>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://unpkg.com/chart.js@2.7.2/dist/Chart.bundle.js"></script>
-<script src="https://unpkg.com/vue-chartkick@0.5.0"></script>
+<script src="/static/js/vue.js"></script>
+<script src="/static/js/vuetify.js"></script>
+<script src="/static/js/axios.min.js"></script>
+<script src="/static/js/Chart.bundle.js"></script>
+<script src="/static/js/vue-chartkick.js"></script>
 <script>
     new Vue({
         el: '#app',

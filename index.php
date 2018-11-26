@@ -27,6 +27,12 @@ $router->map( 'GET', '/graph', function() {
     require __DIR__ . '/views/graph.html';
 });
 
+#################### Static #######################
+
+$router->map( 'GET', '/static/[:s]', function() {
+    require __DIR__ . '/static/' . $s;
+});
+
 ##################################################
 
 $match = $router->match();
