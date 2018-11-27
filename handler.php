@@ -5,10 +5,23 @@ foreach (glob("model/*.php") as $filename)
     include $filename;
 }
 
+function utf8ize($d) {
+    if (is_array($d)) {
+        foreach ($d as $k => $v) {
+            $d[$k] = utf8ize($v);
+        }
+    } else if (is_string ($d)) {
+        return utf8_encode($d);
+    }
+    return $d;
+}
+
 # Handler for routing
 
-function beswanHandler()
+function dataHandler()
 {
+    header('Content-Type: application/json');
+
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -19,7 +32,7 @@ function beswanHandler()
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT * FROM Siswa";
+    $sql = "SELECT * FROM siswa";
     $result = $conn->query($sql);
 
     $i = 0;
@@ -28,12 +41,20 @@ function beswanHandler()
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-            $user[$i] = new UserModel($row["nisn"], $row["nama"], $row["nilairapor"], $row["nem"], $row["kehadiran"], $row["akreditas"], $row["nilaitingkahlaku"]);
-            $i++;
+            array_push($user, $row);
+            //$i++;
+            
         }
+        
+        //print_r($user);
+        //echo json_encode(array_values($user));
+        echo json_encode(utf8ize($user));
+        //var_dump($result->fetch_all);
+    } else {
+        echo json_encode("404");
     }
 
-    echo json_encode($user);
+    
 }
 
 ?>

@@ -9,29 +9,33 @@ $router = new AltoRouter();
 
 ##################### API ########################
 
-$router->map( 'GET', '/login', function() {
+$router->map( 'GET', '/api/login', function() {
     loginHandler();
-});
+}, 'login-api');
+
+$router->map( 'GET', '/api/data', function() {
+    dataHandler();
+}, 'data-api');
 
 #################### Views #######################
 
 $router->map( 'GET', '/', function() {
 	require __DIR__ . '/views/login.html';
-});
+}, 'login-page');
 
 $router->map( 'GET', '/home', function() {
     require __DIR__ . '/views/home.html';
-});
+}, 'homepage');
 
 $router->map( 'GET', '/graph', function() {
     require __DIR__ . '/views/graph.html';
-});
+}, 'graph-page');
 
 #################### Static #######################
 
 $router->map( 'GET', '/static/[:s]', function() {
     require __DIR__ . '/static/' . $s;
-});
+}, 'static-file');
 
 ##################################################
 
