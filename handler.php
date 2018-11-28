@@ -18,6 +18,15 @@ function utf8ize($d) {
 
 # Handler for routing
 
+function loginHandler(){
+    $data = json_decode(file_get_contents('php://input'), true);
+    if ($data['username'] === 'admin' && $data['password'] === 'admin'){
+        echo json_encode(Array('loginStatus' => true));
+    } else {
+        echo json_encode(Array('loginStatus' => false));
+    }
+}
+
 function dataHandler($param)
 {
     header('Content-Type: application/json');

@@ -9,7 +9,7 @@ $router = new AltoRouter();
 
 ##################### API ########################
 
-$router->map( 'GET', '/api/login', function() {
+$router->map( 'POST', '/api/login', function() {
     loginHandler();
 }, 'login-api');
 

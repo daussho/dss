@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <title>Graph</title>
     <link href='/static/css/css.css' rel="stylesheet">
     <link href="/static/css/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
@@ -116,6 +116,11 @@
 <script src="/static/js/Chart.bundle.js"></script>
 <script src="/static/js/vue-chartkick.js"></script>
 <script>
+    isLogin = JSON.parse(localStorage.getItem('loginStatus'));
+    if (isLogin === false || isLogin === null){
+        window.location.href = '/';
+    }
+
     new Vue({
         el: '#app',
         data: () => ({

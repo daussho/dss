@@ -37,7 +37,10 @@
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title>BES1</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn flat>Logout</v-btn>
+            <v-btn flat @click="">
+                <v-icon left>exit_to_app</v-icon>
+                Logout
+            </v-btn>
         </v-toolbar>
         <v-content>
             <v-container fluid fill-height>
@@ -74,6 +77,11 @@
 <script src="/static/js/vuetify.js"></script>
 <script src="/static/js/axios.min.js"></script>
 <script>
+    isLogin = JSON.parse(localStorage.getItem('loginStatus'));
+    if (isLogin === false || isLogin === null){
+        window.location.href = '/';
+    }
+
     new Vue({
         el: '#app',
         data: () => ({
@@ -90,7 +98,7 @@
             ],
             siswa: [],
             loadingData: true,
-            rowPerPage: [5,10, 25, 50]
+            rowPerPage: [10, 25, 50, { "text": "$vuetify.dataIterator.rowsPerPageAll", "value": -1 }]
         }),
         methods: {
             redirect(loc){

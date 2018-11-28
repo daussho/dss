@@ -51,15 +51,19 @@
         },
         methods: {
             login(){
-                axios.post('/login', {
-                    username: this.username,
-                    password: this.password
+                axios.post('/api/login', {
+                  username: this.username,
+                  password: this.password
                 })
                 .then(function (response) {
-                    console.log(response);
+                  res = response.data;
+                  if (res.loginStatus === true){
+                    localStorage.setItem('loginStatus', true);
+                    window.location.href = '/home';
+                  }
                 })
                 .catch(function (error) {
-                    console.log(error);
+                  console.log(error);
                 });
             }
         }
