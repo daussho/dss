@@ -18,7 +18,7 @@ function utf8ize($d) {
 
 # Handler for routing
 
-function dataHandler()
+function dataHandler($param)
 {
     header('Content-Type: application/json');
 
@@ -32,7 +32,12 @@ function dataHandler()
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT * FROM siswa";
+    if ($param === 'all'){
+        $sql = "SELECT * FROM siswa";
+    } else {
+        $sql = "SELECT " . $param . " FROM siswa";
+    }
+    
     $result = $conn->query($sql);
 
     $i = 0;

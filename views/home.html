@@ -35,7 +35,9 @@
         </v-navigation-drawer>
         <v-toolbar color="indigo" dark fixed app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>Application</v-toolbar-title>
+            <v-toolbar-title>BES1</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn flat>Logout</v-btn>
         </v-toolbar>
         <v-content>
             <v-container fluid fill-height>
@@ -96,7 +98,7 @@
             },
             loadData(){
                 vm = this;
-                axios.get('/api/data')
+                axios.get('/api/data/all')
                 .then(function (response) {
                     // handle success
                     vm.siswa = response.data;

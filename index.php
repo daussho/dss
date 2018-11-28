@@ -13,8 +13,8 @@ $router->map( 'GET', '/api/login', function() {
     loginHandler();
 }, 'login-api');
 
-$router->map( 'GET', '/api/data', function() {
-    dataHandler();
+$router->map( 'GET', '/api/data/[:p]', function($p) {
+    dataHandler($p);
 }, 'data-api');
 
 #################### Views #######################

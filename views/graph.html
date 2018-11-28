@@ -35,7 +35,7 @@
         </v-navigation-drawer>
         <v-toolbar color="indigo" dark fixed app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>Application</v-toolbar-title>
+            <v-toolbar-title>BES1</v-toolbar-title>
         </v-toolbar>
         <v-content>
             <v-container fluid fill-height grid-list-xl>
@@ -47,28 +47,60 @@
                     <v-flex text-xs-center xs12 md6>
                         <v-card>
                             <v-card-title>Grafik Penyebaran Nilai Tingkah Laku Calon Beswan</v-card-title>
-                            <column-chart :data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]"></column-chart>
+                            <div v-if="loadNTL" class="text-xs-center">
+                                <v-progress-circular
+                                    indeterminate
+                                    color="primary"
+                                ></v-progress-circular>
+                            </div>
+                            <div v-else>
+                                <column-chart :data="ntl"></column-chart>
+                            </div>
                         </v-card>
                     </v-flex>
 
                     <v-flex text-xs-center xs12 md6>
                         <v-card>
                             <v-card-title>Grafik Penyebaran Nilai Rapot Calon Beswan</v-card-title>
-                            <column-chart :data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]"></column-chart>
+                            <div v-if="loadRapot" class="text-xs-center">
+                                <v-progress-circular
+                                    indeterminate
+                                    color="primary"
+                                ></v-progress-circular>
+                            </div>
+                            <div v-else>
+                                <column-chart :data="rapot"></column-chart>
+                            </div>
                         </v-card>
                     </v-flex>
 
                     <v-flex text-xs-center xs12 md6>
                         <v-card>
                             <v-card-title>Grafik Penyebaran Rata-Rata NEM Calon Beswan</v-card-title>
-                            <column-chart :data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]"></column-chart>
+                            <div v-if="loadNEM" class="text-xs-center">
+                                <v-progress-circular
+                                    indeterminate
+                                    color="primary"
+                                ></v-progress-circular>
+                            </div>
+                            <div v-else>
+                                <column-chart :data="nem"></column-chart>
+                            </div>
                         </v-card>
                     </v-flex>
 
                     <v-flex text-xs-center xs12 md6>
                         <v-card>
                             <v-card-title>Grafik Penyebaran Nilai Kehadiran Calon Beswan</v-card-title>
-                            <column-chart :data="[['Sun', 32], ['Mon', 46], ['Tue', 28]]"></column-chart>
+                            <div v-if="loadKehadiran" class="text-xs-center">
+                                <v-progress-circular
+                                    indeterminate
+                                    color="primary"
+                                ></v-progress-circular>
+                            </div>
+                            <div v-else>
+                                <column-chart :data="kehadiran"></column-chart>
+                            </div>
                         </v-card>
                     </v-flex>
 
@@ -88,7 +120,220 @@
         el: '#app',
         data: () => ({
             drawer: false,
+            loadNTL: true,
+            loadRapot: true,
+            loadNEM: true,
+            loadKehadiran: true,
+            ntl: [
+                ['90', 0],
+                ['80', 0],
+                ['70', 0],
+                ['60', 0],
+                ['50', 0],
+                ['40', 0],
+                ['30', 0],
+                ['20', 0],
+                ['10', 0],
+            ],
+            rapot: [
+                ['90', 0],
+                ['80', 0],
+                ['70', 0],
+                ['60', 0],
+                ['50', 0],
+                ['40', 0],
+                ['30', 0],
+                ['20', 0],
+                ['10', 0],
+            ],
+            nem: [
+                ['35', 0],
+                ['30', 0],
+                ['25', 0],
+                ['20', 0],
+                ['15', 0],
+                ['10', 0],
+                ['5', 0]
+            ],
+            kehadiran: [
+                ['90', 0],
+                ['80', 0],
+                ['70', 0],
+                ['60', 0],
+                ['50', 0],
+                ['40', 0],
+                ['30', 0],
+                ['20', 0],
+                ['10', 0],
+            ]
         }),
+        methods: {
+            redirect(loc){
+                window.location.href = '/'+loc;
+            },
+            countNTL(){
+                vm = this;
+                let rData = [];
+
+                axios.get('/api/data/ntl')
+                .then(function (response) {
+                    // handle success
+                    rData = response.data;
+                    
+                    for (let i = 0; i < rData.length; i++){
+                        if (parseFloat(rData[i].ntl) >= 90){
+                            vm.ntl[0][1]++;
+                        } else if (parseFloat(rData[i].ntl) >= 80){
+                            vm.ntl[1][1]++;
+                        } else if (parseFloat(rData[i].ntl) >= 70){
+                            vm.ntl[2][1]++;
+                        } else if (parseFloat(rData[i].ntl) >= 60){
+                            vm.ntl[3][1]++;
+                        } else if (parseFloat(rData[i].ntl) >= 50){
+                            vm.ntl[4][1]++;
+                        } else if (parseFloat(rData[i].ntl) >= 40){
+                            vm.ntl[5][1]++;
+                        } else if (parseFloat(rData[i].ntl) >= 30){
+                            vm.ntl[6][1]++;
+                        } else if (parseFloat(rData[i].ntl) >= 20){
+                            vm.ntl[7][1]++;
+                        } else if (parseFloat(rData[i].ntl) >= 10){
+                            vm.ntl[8][1]++;
+                        }
+                    }
+                    vm.loadNTL = false;
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .then(function () {
+                    // always executed
+                });
+            },
+            countRapot(){
+                vm = this;
+                let rData = [];
+
+                axios.get('/api/data/rapot')
+                .then(function (response) {
+                    // handle success
+                    rData = response.data;
+                    
+                    for (let i = 0; i < rData.length; i++){
+                        if (parseFloat(rData[i].rapot) >= 90){
+                            vm.rapot[0][1]++;
+                        } else if (parseFloat(rData[i].rapot) >= 80){
+                            vm.rapot[1][1]++;
+                        } else if (parseFloat(rData[i].rapot) >= 70){
+                            vm.rapot[2][1]++;
+                        } else if (parseFloat(rData[i].rapot) >= 60){
+                            vm.rapot[3][1]++;
+                        } else if (parseFloat(rData[i].rapot) >= 50){
+                            vm.rapot[4][1]++;
+                        } else if (parseFloat(rData[i].rapot) >= 40){
+                            vm.rapot[5][1]++;
+                        } else if (parseFloat(rData[i].rapot) >= 30){
+                            vm.rapot[6][1]++;
+                        } else if (parseFloat(rData[i].rapot) >= 20){
+                            vm.rapot[7][1]++;
+                        } else if (parseFloat(rData[i].rapot) >= 10){
+                            vm.rapot[8][1]++;
+                        }
+                    }
+                    vm.loadRapot = false;
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .then(function () {
+                    // always executed
+                });
+            },
+            countNEM(){
+                vm = this;
+                let rData = [];
+
+                axios.get('/api/data/nem')
+                .then(function (response) {
+                    // handle success
+                    rData = response.data;
+                    
+                    for (let i = 0; i < rData.length; i++){
+                        if (parseFloat(rData[i].nem) >= 35){
+                            vm.nem[0][1]++;
+                        } else if (parseFloat(rData[i].nem) >= 30){
+                            vm.nem[1][1]++;
+                        } else if (parseFloat(rData[i].nem) >= 25){
+                            vm.nem[2][1]++;
+                        } else if (parseFloat(rData[i].nem) >= 20){
+                            vm.nem[3][1]++;
+                        } else if (parseFloat(rData[i].nem) >= 15){
+                            vm.nem[4][1]++;
+                        } else if (parseFloat(rData[i].nem) >= 10){
+                            vm.nem[5][1]++;
+                        } else if (parseFloat(rData[i].nem) >= 5){
+                            vm.nem[6][1]++;
+                        }
+                    }
+                    vm.loadNEM = false;
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .then(function () {
+                    // always executed
+                });
+            },
+            countKehadiran(){
+                vm = this;
+                let rData = [];
+
+                axios.get('/api/data/kehadiran')
+                .then(function (response) {
+                    // handle success
+                    rData = response.data;
+                    
+                    for (let i = 0; i < rData.length; i++){
+                        if (parseFloat(rData[i].kehadiran) >= 90){
+                            vm.kehadiran[0][1]++;
+                        } else if (parseFloat(rData[i].kehadiran) >= 80){
+                            vm.kehadiran[1][1]++;
+                        } else if (parseFloat(rData[i].kehadiran) >= 70){
+                            vm.kehadiran[2][1]++;
+                        } else if (parseFloat(rData[i].kehadiran) >= 60){
+                            vm.kehadiran[3][1]++;
+                        } else if (parseFloat(rData[i].kehadiran) >= 50){
+                            vm.kehadiran[4][1]++;
+                        } else if (parseFloat(rData[i].kehadiran) >= 40){
+                            vm.kehadiran[5][1]++;
+                        } else if (parseFloat(rData[i].kehadiran) >= 30){
+                            vm.kehadiran[6][1]++;
+                        } else if (parseFloat(rData[i].kehadiran) >= 20){
+                            vm.kehadiran[7][1]++;
+                        } else if (parseFloat(rData[i].kehadiran) >= 10){
+                            vm.kehadiran[8][1]++;
+                        }
+                    }
+                    vm.loadKehadiran = false;
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .then(function () {
+                    // always executed
+                });
+            }
+        },
+        created(){
+            this.countNTL();
+            this.countRapot();
+            this.countNEM();
+            this.countKehadiran();
+        }
     });
 </script>
 </body>
