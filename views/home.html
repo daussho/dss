@@ -37,7 +37,7 @@
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title>BES1</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn flat @click="">
+            <v-btn flat @click="logout">
                 <v-icon left>exit_to_app</v-icon>
                 Logout
             </v-btn>
@@ -103,6 +103,10 @@
         methods: {
             redirect(loc){
                 window.location.href = '/'+loc;
+            },
+            logout(){
+                localStorage.setItem('loginStatus', false);
+                this.redirect('');
             },
             loadData(){
                 vm = this;

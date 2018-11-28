@@ -36,6 +36,11 @@
         <v-toolbar color="indigo" dark fixed app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title>BES1</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn flat @click="logout">
+                <v-icon left>exit_to_app</v-icon>
+                Logout
+            </v-btn>
         </v-toolbar>
         <v-content>
             <v-container fluid fill-height grid-list-xl>
@@ -175,6 +180,10 @@
         methods: {
             redirect(loc){
                 window.location.href = '/'+loc;
+            },
+            logout(){
+                localStorage.setItem('loginStatus', false);
+                this.redirect('');
             },
             countNTL(){
                 vm = this;
