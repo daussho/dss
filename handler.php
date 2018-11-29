@@ -19,8 +19,31 @@ function utf8ize($d) {
 # Handler for routing
 
 function loginHandler(){
+    header('Content-Type: application/json');
+    
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "dss";
+
     $data = json_decode(file_get_contents('php://input'), true);
-    if ($data['username'] === 'admin' && $data['password'] === 'admin'){
+    $user = $data['username'];
+    $userpwd = hash('sha256', $data['password']);
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT COUNT(username) AS result FROM user WHERE username LIKE '" . $user . "' AND password LIKE '" . $userpwd . "'";
+    //$sql = "SELECT COUNT(username) FROM user";
+    
+    $result = $conn->query($sql);
+    $conn->close();
+    
+    $res = $result->fetch_array();
+
+    if ($res['result'] === '1'){
         echo json_encode(Array('loginStatus' => true));
     } else {
         echo json_encode(Array('loginStatus' => false));
@@ -48,6 +71,7 @@ function dataHandler($param)
     }
     
     $result = $conn->query($sql);
+    $conn->close();
 
     $i = 0;
     $user = Array();
@@ -57,9 +81,7 @@ function dataHandler($param)
         while($row = $result->fetch_assoc()) {
             array_push($user, $row);
             //$i++;
-            
         }
-        
         //print_r($user);
         //echo json_encode(array_values($user));
         echo json_encode(utf8ize($user));
