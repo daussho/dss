@@ -17,6 +17,10 @@ $router->map( 'GET', '/api/data/[:p]', function($p) {
     dataHandler($p);
 }, 'data-api');
 
+$router->map( 'POST', '/api/register', function() {
+    regHandler();
+}, 'registration-api');
+
 #################### Views #######################
 
 $router->map( 'GET', '/', function() {
